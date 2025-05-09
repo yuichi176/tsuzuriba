@@ -1,29 +1,25 @@
-import { useState } from 'react'
-import viteLogo from '/vite.svg'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { parse_markdown } from '@yuichi176/puremark-rs'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const markdownText = `
+# This is a heading1
+
+This is a paragraph.
+
+## This is a heading2
+- item 1
+- item 2
+
+## This is a quote
+> This is a quote
+`
+  const html = parse_markdown(markdownText)
 
   return (
     <>
       <div>
-        <a href="https://vite.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <div dangerouslySetInnerHTML={{ __html: html }} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
     </>
   )
 }
